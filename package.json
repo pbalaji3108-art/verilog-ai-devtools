@@ -1,0 +1,19 @@
+{
+  "name": "verilog-ai-devtools",
+  "version": "1.0.0",
+  "description": "Verilog testbench generator + RTL bug explainer, powered by the Claude API",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "bin": {
+    "ai-dev-tools": "./src/index.js"
+  },
+  "scripts": {
+    "gen-tb": "node src/index.js gen-tb",
+    "explain-bug": "node src/index.js explain-bug"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.0",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5"
+  }
+}
