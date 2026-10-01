@@ -28,13 +28,22 @@ const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
  * @returns {Promise<string>}   - Claude's text response.
  */
 async function askClaude(systemPrompt, userPrompt, maxTokens = 2000) {
-  const response = await client.messages.create({
-    // Override with CLAUDE_MODEL in .env if you want a different model.
-    model: process.env.CLAUDE_MODEL || 'claude-sonnet-5-5',
-    max_tokens: maxTokens,
-    system: systemPrompt,
-    messages: [{ role: 'user', content: userPrompt }],
-  });
+  let response;
+  try {
+    response = await client.messages.create({
+      // Override with CLAUDE_MODEL in .env if you want a different model.
+      model: process.env.CLAUDE_MODEL || 'claude-sonnet-5-5',
+      max_tokens: maxTokens,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: userPrompt }],
+    });
+  } catch (err) {
+    // Print the API's own message (bad key, no credits, unknown model...)
+    // instead of a long stack trace.
+    const msg = err?.error?.error?.message || err.message;
+    console.error(`Claude API error${err.status ? ` (${err.status})` : ''}: ${msg}`);
+    process.exit(1);
+  }
 
   // response.content is an array of blocks; for a plain text reply it's
   // a single block of type "text".

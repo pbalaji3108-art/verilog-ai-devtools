@@ -1,7 +1,10 @@
 // buggy_counter.sv
-// A 4-bit up-counter with synchronous reset and enable.
-// Use this with `explain-bug` once you've implemented bugExplainer.js.
-// (There are two intentional bugs in here for you to have Claude find.)
+// A 4-bit up-counter with an ASYNCHRONOUS active-high reset and an enable.
+// Intent: count clears to 0 immediately when rst goes high, without waiting
+// for a clock edge.
+//
+// Try it: npm run explain-bug -- -f examples/buggy_counter.sv
+// (Contains two intentional functional bugs, plus one style/lint issue.)
 
 module counter (
     input        clk,
