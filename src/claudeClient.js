@@ -29,7 +29,8 @@ const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
  */
 async function askClaude(systemPrompt, userPrompt, maxTokens = 2000) {
   const response = await client.messages.create({
-    model: 'claude-sonnet-4-5-20250929',
+    // Override with CLAUDE_MODEL in .env if you want a different model.
+    model: process.env.CLAUDE_MODEL || 'claude-sonnet-5-5',
     max_tokens: maxTokens,
     system: systemPrompt,
     messages: [{ role: 'user', content: userPrompt }],
