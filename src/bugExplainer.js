@@ -14,7 +14,7 @@
 //                     log in tags, so the model never refers to a log that
 //                     doesn't exist.
 
-const { askClaude } = require('./claudeClient');
+const { askLLM } = require('./llmClient');
 
 const SYSTEM_PROMPT = `You are a senior RTL design and verification engineer
 doing a focused code review. Your job is to find real bugs, not to paraphrase
@@ -106,7 +106,7 @@ Follow the review method and output format from your instructions.`;
  */
 async function explainBug(rtlCode, errorLog = '') {
   const prompt = buildPrompt(rtlCode, errorLog);
-  return askClaude(SYSTEM_PROMPT, prompt, 2500);
+  return askLLM(SYSTEM_PROMPT, prompt, 2500);
 }
 
 module.exports = { SYSTEM_PROMPT, numberLines, buildPrompt, explainBug };

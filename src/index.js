@@ -11,7 +11,7 @@ const program = new Command();
 
 program
   .name('ai-dev-tools')
-  .description('Verilog testbench generator + RTL bug explainer (Claude-powered)');
+  .description('Verilog testbench generator + RTL bug explainer (local LLM via Ollama, or Claude API)');
 
 program
   .command('gen-tb')

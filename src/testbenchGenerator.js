@@ -14,7 +14,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { askClaude } = require('./claudeClient');
+const { askLLM } = require('./llmClient');
 
 const SYSTEM_PROMPT = `You are a senior design verification engineer. You write
 clean, self-checking SystemVerilog testbenches that compile and run on the
@@ -92,7 +92,7 @@ function extractCode(text) {
  */
 async function generateTestbench(moduleDescription, outputName = 'generated') {
   const prompt = buildPrompt(moduleDescription);
-  const result = await askClaude(SYSTEM_PROMPT, prompt, 6000);
+  const result = await askLLM(SYSTEM_PROMPT, prompt, 6000);
 
   const outDir = path.join(__dirname, '..', 'output');
   if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
